@@ -1,7 +1,7 @@
 /* BASIC */
 body {
   font-size: 13px;
-  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   height: 100vh; }
 
 html {
@@ -62,9 +62,9 @@ h2.active {
   border-bottom: 2px solid #5fbae9; }
 
 /* FORM TYPOGRAPHY*/
-input[type="button"],
-input[type="submit"],
-input[type="reset"] {
+input[type='button'],
+input[type='submit'],
+input[type='reset'] {
   background-color: #56baed;
   border: none;
   color: white;
@@ -85,21 +85,30 @@ input[type="reset"] {
   -o-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out; }
 
-input[type="button"]:hover,
-input[type="submit"]:hover,
-input[type="reset"]:hover {
+.downloadButton {
+  white-space: normal !important;
+  word-wrap: break-word;
+  max-width: 90%; }
+
+.descriptionText {
+  white-space: normal !important;
+  word-wrap: break-word; }
+
+input[type='button']:hover,
+input[type='submit']:hover,
+input[type='reset']:hover {
   background-color: #39ace7; }
 
-input[type="button"]:active,
-input[type="submit"]:active,
-input[type="reset"]:active {
+input[type='button']:active,
+input[type='submit']:active,
+input[type='reset']:active {
   -moz-transform: scale(0.95);
   -webkit-transform: scale(0.95);
   -o-transform: scale(0.95);
   -ms-transform: scale(0.95);
   transform: scale(0.95); }
 
-input[type="text"] {
+input[type='text'] {
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;
@@ -119,11 +128,11 @@ input[type="text"] {
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px; }
 
-input[type="text"]:focus {
+input[type='text']:focus {
   background-color: #fff;
   border-bottom: 2px solid #5fbae9; }
 
-input[type="text"]:placeholder {
+input[type='text']:placeholder {
   color: #cccccc; }
 
 /* ANIMATIONS */
@@ -210,7 +219,7 @@ input[type="text"]:placeholder {
   width: 0;
   height: 2px;
   background-color: #56baed;
-  content: "";
+  content: '';
   transition: width 0.2s; }
 
 .underlineHover:hover {
