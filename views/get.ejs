@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to HausJS!</title>
+    <title>MK1 catShare</title>
     <link rel="stylesheet" type="text/css" href="/css/index.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -15,13 +15,14 @@
         <div id="formContent">
             <div class="fadeIn first">
                 <img src="/img/filecat.png" id="icon" alt="Website Icon" />
-                <p style="font-weight: bold;">MK1 CatShare</p>
+                <p style="font-weight: bold;">MK1 catShare</p>
             </div>
 
             <p class="fadeIn second">You've been linked an MK1 script!</p>
             <input type="button" class="fadeIn second downloadButton" onclick="location.href='mk1://ext-script/https://mk1a.catto.io/s/<%- script.id -%>?id=<%- script.id -%>&name=<%- script.name -%>&trigger=<%- script.trigger -%>'" type="button" value="Download <%= script.name %>"/>
 
             <p class="fadeIn third descriptionText">Description: <%= script.description %></p>
+            <p class="fadeIn third">Uploaded on: <%= script.date.toISOString() %></p>
             <p class="fadeIn third">Downloads: <%= script.downloads %></p>
 
             <div id="formFooter">

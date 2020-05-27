@@ -57,6 +57,7 @@ app.post('/s/api/new', function (req, res) {
         req.headers['x-forwarded-for'] ||
         req.connection.remoteAddress,
       downloads: 0,
+      date: new Date.UTC(),
       trigger: sanitizer.value(req.body.trigger, 'string'),
       code: req.body.code,
       name: sanitizer.value(req.body.name, 'string'),
