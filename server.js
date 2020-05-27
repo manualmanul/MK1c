@@ -6,6 +6,7 @@ const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
 const adapter = new FileSync('db.json');
 const db = low(adapter);
+const { check, validationResult } = require('express-validator');
 
 // Set some defaults (required if your JSON file is empty)
 db.defaults({ scripts: [], count: 0 }).write();
@@ -48,7 +49,11 @@ app.get('/s/:scriptId', function (req, res) {
   }
 });
 
-app.post('/s/api/new', function (req, res) {
+app.post('/s/api/new', [
+    check('trigger').isLength({ min: 3 }).trim().escape(),
+    check('name').isLength({ min: 3 }).trim().escape(),
+    check('description').isLength({ min: 3 }).trim().escape()
+  ],function (req, res) {
   const newId = shortid.generate();
   db.get('scripts')
     .push({
@@ -59,10 +64,10 @@ app.post('/s/api/new', function (req, res) {
         req.connection.remoteAddress,
       downloads: 0,
       date: new Date(),
-      trigger: sanitizer.value(req.body.trigger, 'string'),
+      trigger: req.body.trigger,
       code: req.body.code,
-      name: sanitizer.value(req.body.name, 'string'),
-      description: sanitizer.value(req.body.description, 'string'),
+      name: req.body.name,
+      description: req.body.description,
     })
     .write();
   db.update('count', (n) => n + 1).write();
