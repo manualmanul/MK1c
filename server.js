@@ -16,10 +16,13 @@ app.listen(9999, () => {
 
 app.use(bodyParser.json());
 
-app.get('/script/test', function (req, res) {
-  res.send(
-    '<a href="mk1://ext-script/https://mk1a.catto.io/s/test?id=0&name=HardcodedTest&trigger=DEVICE-LOCK" style="font-size: 48;">Click here to test</a>'
-  );
+app.set('view engine', 'ejs');
+
+app.set('views', __dirname + '/views');
+app.use(express.static(__dirname + "/public"));
+
+app.get('/', (req, res) => {
+  res.render('index');
 });
 
 app.get('/s/c/:scriptId', function (req, res) {
@@ -29,7 +32,7 @@ app.get('/s/c/:scriptId', function (req, res) {
   } else {
     db.get('scripts')
       .find({ id: req.params.scriptId })
-      .update('downloads', n => n + 1)
+      .update('downloads', (n) => n + 1)
       .write();
     res.send(script.code);
   }
@@ -40,16 +43,13 @@ app.get('/s/:scriptId', function (req, res) {
   if (Object.is(script, undefined)) {
     res.sendStatus(404);
   } else {
-    res.send(
-      `<p><a href="mk1://ext-script/https://mk1a.catto.io/s/${script.id}?id=${script.id}&name=${script.name}&trigger=${script.trigger}" style="font-size: 48;">Click here to install ${script.name}</a> (${script.downloads} downloads)</p>`
-    );
+    res.render('get', { script: script });
   }
 });
 
 app.post('/s/api/new', function (req, res) {
   const newId = shortid.generate();
-  db
-    .get('scripts')
+  db.get('scripts')
     .push({
       id: newId,
       ip:
@@ -57,17 +57,12 @@ app.post('/s/api/new', function (req, res) {
         req.headers['x-forwarded-for'] ||
         req.connection.remoteAddress,
       downloads: 0,
-      trigger: req.body.trigger,
+      trigger: sanitizer.value(req.body.trigger, 'string'),
       code: req.body.code,
-      name: req.body.name,
-      description: req.body.description,
+      name: sanitizer.value(req.body.name, 'string'),
+      description: sanitizer.value(req.body.description, 'string'),
     })
     .write();
-  db.update('count', n => n + 1)
-    .write();
+  db.update('count', (n) => n + 1).write();
   res.send(newId);
-});
-
-app.get('/', function (req, res) {
-  res.sendFile('index.html');
 });
