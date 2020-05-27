@@ -22,7 +22,8 @@ app.set('views', __dirname + '/views');
 app.use(express.static(__dirname + "/public"));
 
 app.get('/', (req, res) => {
-  res.render('index');
+  const count = db.get('count').value();
+  res.render('index', { count: count });
 });
 
 app.get('/s/c/:scriptId', function (req, res) {
@@ -57,7 +58,7 @@ app.post('/s/api/new', function (req, res) {
         req.headers['x-forwarded-for'] ||
         req.connection.remoteAddress,
       downloads: 0,
-      date: new Date.UTC(),
+      date: new Date(),
       trigger: sanitizer.value(req.body.trigger, 'string'),
       code: req.body.code,
       name: sanitizer.value(req.body.name, 'string'),
