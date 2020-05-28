@@ -22,6 +22,12 @@ h2 {
   margin: 40px 8px 10px 8px;
   color: #cccccc; }
 
+.subtext {
+  font-size: 11px;
+  color: #adadad;
+  text-align: center;
+  margin-top: -15px; }
+
 /* STRUCTURE */
 .wrapper {
   display: flex;
